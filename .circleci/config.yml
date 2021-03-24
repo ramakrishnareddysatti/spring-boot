@@ -19,6 +19,16 @@ jobs:
           mvn org.apache.maven.plugins:maven-dependency-plugin:3.1.2:go-offline "$@"
         name: Install Dependencies
         working_directory: ''
+     - run:
+        command: |
+          if [ -n "" ]; then
+            set -- "$@" --settings ""
+          fi
+          mvn package "$@"
+        name: Run package
+        working_directory: ''
+    - store_artifacts:
+          path: $CIRCLE_WORKING_DIRECTORY/
     - run:
         command: |
           if [ -n "" ]; then
@@ -31,8 +41,6 @@ jobs:
         key: maven-{{ checksum "/tmp/maven_cache_seed" }}
         paths:
         - ~/.m2/repository
-    - store_artifacts:
-          path: $CIRCLE_WORKING_DIRECTORY/
     - store_test_results:
         path: target/surefire-reports
 workflows:
