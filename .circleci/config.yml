@@ -79,7 +79,7 @@ jobs:
           to: 's3://spring-boot-xyz'
 workflows:
   version: 2
-  Benchmarking Automation:
+  push2S3:
     jobs:
     - maven/test
     - s3/copy:
