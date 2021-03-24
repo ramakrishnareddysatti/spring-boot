@@ -57,15 +57,15 @@ jobs:
   store/buck:
     working_directory: ~/spring-project/app
     docker:
-      - image: 'cimg/python:3.6'
+      - image: 'cimg/python:3.9'
     steps:
       - attach_workspace:
           at: ~/spring-project/app
       - run: ls
-      #- 'aws-s3/sync':
-      #    arguments: '--delete'
-      #    from: '~/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar'
-      #    to: 's3://spring-boot-xyz/app/'
+      - 'aws-s3/sync':
+          arguments: '--delete'
+          from: '~/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar'
+          to: 's3://spring-boot-xyz/app/'
       - 'aws-s3/copy':
           arguments: '--dryrun'
           from: '~/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar'
