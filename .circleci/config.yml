@@ -59,15 +59,15 @@ jobs:
     docker:
       - image: 'cimg/python:3.6'
     steps:
-    - attach_workspace:
+      - attach_workspace:
           at: ~/spring-project/app
-    - aws-s3/sync:
+      - aws-s3/sync:
           arguments: '--delete'
-          from: ~/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar
+          from: '~/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar'
           to: 's3://spring-boot-xyz/app/'
-    - aws-s3/copy:
+      - aws-s3/copy:
           arguments: '--dryrun'
-          from: ~/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar
+          from: '~/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar'
           to: 's3://spring-boot-xyz'
 workflows:
   version: 2
