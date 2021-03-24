@@ -28,7 +28,7 @@ jobs:
         name: Run package
         working_directory: ''
     - store_artifacts:
-        path: /home/circleci/project
+        path: target
     - run:
         command: |
           if [ -n "" ]; then
