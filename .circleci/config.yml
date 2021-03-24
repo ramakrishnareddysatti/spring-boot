@@ -68,3 +68,5 @@ workflows:
     jobs:
     - maven/test
     - s3/copy
+         requires:
+           - maven/test
