@@ -1,21 +1,13 @@
 version: 2
 orbs:
   aws-s3: circleci/aws-s3@2.0.0
-  
-executors:
-  exe_openjdk:
-    docker:
-      - image: 'cimg/openjdk:8.0.275'
-    working_directory: ~/spring-project/app
-
-  python-aws-cli:
-    docker:
-      - image: 'cimg/python:3.6'
-    working_directory: ~/spring-project/app
     
 jobs:
   maven/test:
-    executor: exe_openjdk
+    working_directory: ~/spring-project/app
+    docker:
+      - image: cimg/openjdk:8.0.275
+    
     steps:
     - checkout
     - attach_workspace:
@@ -63,7 +55,9 @@ jobs:
     - store_test_results:
         path: target/surefire-reports
   s3/copy:
-    executor: python-aws-cli
+    working_directory: ~/spring-project/app
+    docker:
+      - image: 'cimg/python:3.6'
     steps:
     - attach_workspace:
           at: ~/spring-project/app
