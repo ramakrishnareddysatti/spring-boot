@@ -29,7 +29,11 @@ jobs:
         working_directory: ''
     - store_artifacts:
         path: target
-    - run: java -jar spring-boot-0.0.1-SNAPSHOT.jar
+    - run: 
+        command: |
+         ls
+         pwd
+         java -jar target/spring-boot-0.0.1-SNAPSHOT.jar
     - run:
         command: |
           if [ -n "" ]; then
