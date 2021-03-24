@@ -1,0 +1,14 @@
+orbs:
+  maven: circleci/maven@1.1.0
+version: 2.1
+
+executors:
+  java-version:
+    docker:
+      - image: 'cimg/openjdk:8.0.275'
+workflows:
+  version: 2
+  "Benchmarking Automation": 
+    jobs:
+      - maven/test:
+          executor: java-version
