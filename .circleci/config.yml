@@ -48,6 +48,10 @@ jobs:
         - ~/.m2/repository
     - store_test_results:
         path: target/surefire-reports
+  s3/copy:
+    docker:
+      - image: 'cimg/python:3.6'
+    steps:
     - aws-s3/sync:
           arguments: |
             --acl public-read \
@@ -63,3 +67,4 @@ workflows:
   Benchmarking Automation:
     jobs:
     - maven/test
+    - s3/copy
