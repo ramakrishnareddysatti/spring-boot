@@ -2,11 +2,20 @@ version: 2
 orbs:
   aws-s3: circleci/aws-s3@2.0.0
   
+executors:
+  exe_openjdk:
+    docker:
+      - image: 'cimg/openjdk:8.0.275'
+    working_directory: /mnt/spring-project/app
+
+  python-aws-cli:
+    docker:
+      - image: 'cimg/python:3.6'
+    working_directory: /mnt/spring-project/app
+    
 jobs:
   maven/test:
-    working_directory: ~/spring-project
-    docker:
-    - image: cimg/openjdk:8.0.275
+    executor: exe_openjdk
     steps:
     - checkout
     - attach_workspace:
@@ -14,7 +23,7 @@ jobs:
     - run:
         command: find . -name 'pom.xml' | sort | xargs cat > /tmp/maven_cache_seed
         name: Generate Cache Checksum
-        working_directory: $CIRCLE_WORKING_DIRECTORY/
+        
     - restore_cache:
         key: maven-{{ checksum "/tmp/maven_cache_seed" }}
     - run:
@@ -24,7 +33,7 @@ jobs:
           fi
           mvn org.apache.maven.plugins:maven-dependency-plugin:3.1.2:go-offline "$@"
         name: Install Dependencies
-        working_directory: ''
+        
     - run:
         command: |
           if [ -n "" ]; then
@@ -32,13 +41,13 @@ jobs:
           fi
           mvn package "$@"
         name: Run package
-        working_directory: ''
-    - store_artifacts:
-        path: target
+        
+    #- store_artifacts:
+    #    path: target
     #- run: java -jar target/spring-boot-0.0.1-SNAPSHOT.jar
     - persist_to_workspace:
-          root: ~/spring-project
-          paths: ./target
+          root: .
+          paths: .
     - run:
         command: |
           if [ -n "" ]; then
@@ -54,12 +63,10 @@ jobs:
     - store_test_results:
         path: target/surefire-reports
   s3/copy:
-    working_directory: ~/spring-project
-    docker:
-      - image: 'cimg/python:3.6'
+    executor: python-aws-cli
     steps:
     - attach_workspace:
-          at: ~/spring-project
+          at: /mnt/spring-project/app
     - aws-s3/sync:
           arguments: |
             --acl public-read \
@@ -68,7 +75,7 @@ jobs:
           to: 's3://spring-boot-xyz/app/'
     - aws-s3/copy:
           arguments: '--dryrun'
-          from: target/spring-boot-0.0.1-SNAPSHOT.jar
+          from: /mnt/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar
           to: 's3://spring-boot-xyz'
 workflows:
   version: 2
