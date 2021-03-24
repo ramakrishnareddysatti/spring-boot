@@ -6,12 +6,12 @@ executors:
   exe_openjdk:
     docker:
       - image: 'cimg/openjdk:8.0.275'
-    working_directory: /mnt/spring-project/app
+    working_directory: ~/spring-project/app
 
   python-aws-cli:
     docker:
       - image: 'cimg/python:3.6'
-    working_directory: /mnt/spring-project/app
+    working_directory: ~/spring-project/app
     
 jobs:
   maven/test:
@@ -19,7 +19,7 @@ jobs:
     steps:
     - checkout
     - attach_workspace:
-         at: /mnt/spring-project/app
+         at: ~/spring-project/app
     - run:
         command: find . -name 'pom.xml' | sort | xargs cat > /tmp/maven_cache_seed
         name: Generate Cache Checksum
@@ -46,7 +46,7 @@ jobs:
     #    path: target
     #- run: java -jar target/spring-boot-0.0.1-SNAPSHOT.jar
     - persist_to_workspace:
-          root: .
+          root: ~/spring-project/app
           paths: .
     - run:
         command: |
@@ -66,7 +66,7 @@ jobs:
     executor: python-aws-cli
     steps:
     - attach_workspace:
-          at: /mnt/spring-project/app
+          at: ~/spring-project/app
     - aws-s3/sync:
           arguments: |
             --acl public-read \
@@ -75,7 +75,7 @@ jobs:
           to: 's3://spring-boot-xyz/app/'
     - aws-s3/copy:
           arguments: '--dryrun'
-          from: /mnt/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar
+          from: ~/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar
           to: 's3://spring-boot-xyz'
 workflows:
   version: 2
