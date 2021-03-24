@@ -12,3 +12,5 @@ workflows:
     jobs:
       - maven/test:
           executor: java-version
+      - store_artifacts:
+          path: /home/circleci/project
