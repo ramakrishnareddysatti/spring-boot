@@ -19,7 +19,7 @@ jobs:
     steps:
     - checkout
     - attach_workspace:
-         at: ~/spring-project
+         at: /mnt/spring-project/app
     - run:
         command: find . -name 'pom.xml' | sort | xargs cat > /tmp/maven_cache_seed
         name: Generate Cache Checksum
@@ -55,7 +55,7 @@ jobs:
           fi
           mvn verify "$@"
         name: Run Tests
-        working_directory: ''
+        
     - save_cache:
         key: maven-{{ checksum "/tmp/maven_cache_seed" }}
         paths:
