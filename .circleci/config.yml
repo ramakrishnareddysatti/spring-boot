@@ -4,10 +4,13 @@ orbs:
   
 jobs:
   maven/test:
+    working_directory: ~/spring-project
     docker:
     - image: cimg/openjdk:8.0.275
     steps:
     - checkout
+    - attach_workspace:
+         at: ~/spring-project
     - run:
         command: find . -name 'pom.xml' | sort | xargs cat > /tmp/maven_cache_seed
         name: Generate Cache Checksum
@@ -33,7 +36,9 @@ jobs:
     - store_artifacts:
         path: target
     #- run: java -jar target/spring-boot-0.0.1-SNAPSHOT.jar
-                        
+    - persist_to_workspace:
+          root: ~/spring-project
+          paths: ./target
     - run:
         command: |
           if [ -n "" ]; then
@@ -49,9 +54,12 @@ jobs:
     - store_test_results:
         path: target/surefire-reports
   s3/copy:
+    working_directory: ~/spring-project
     docker:
       - image: 'cimg/python:3.6'
     steps:
+    - attach_workspace:
+          at: ~/spring-project
     - aws-s3/sync:
           arguments: |
             --acl public-read \
