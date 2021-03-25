@@ -66,11 +66,11 @@ jobs:
       - run: ls
       - aws-s3/sync:
           arguments: '--delete'
-          from: '~/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar'
+          from: 'target/spring-boot-0.0.1-SNAPSHOT.jar'
           to: 's3://spring-boot-xyz/app/'
       - aws-s3/copy:
           arguments: '--dryrun'
-          from: '~/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar'
+          from: 'target/spring-boot-0.0.1-SNAPSHOT.jar'
           to: 's3://spring-boot-xyz'
 workflows:
   version: 2
