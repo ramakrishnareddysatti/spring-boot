@@ -55,7 +55,7 @@ jobs:
     - store_test_results:
         path: target/surefire-reports
         
-  store_buck:
+  storeToSimple:
     working_directory: ~/spring-project/app
     docker:
       - image: 'cimg/python:3.9'
@@ -77,6 +77,6 @@ workflows:
   push2S3:
     jobs:
     - build
-    - store_buck:
+    - storeToSimple:
         requires:
          - build
