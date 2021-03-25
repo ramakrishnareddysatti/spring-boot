@@ -64,7 +64,7 @@ jobs:
       - attach_workspace:
           at: ~/spring-project/app
       - run: ls
-      - aws_s3/sync:
+      - aws-s3/sync:
           arguments: '--delete'
           from: '~/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar'
           to: 's3://spring-boot-xyz/app/'
