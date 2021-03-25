@@ -68,10 +68,10 @@ jobs:
           arguments: '--delete'
           from: 'target'
           to: 's3://spring-boot-xyz/app/'
-      - aws-s3/copy:
-          arguments: '--dryrun'
-          from: 'target'
-          to: 's3://spring-boot-xyz'
+      #- aws-s3/copy:
+          #arguments: '--dryrun'
+          #from: 'target'
+          #to: 's3://spring-boot-xyz'
 workflows:
   version: 2
   push2S3:
