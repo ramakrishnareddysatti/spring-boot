@@ -39,7 +39,7 @@ jobs:
     #- run: java -jar target/spring-boot-0.0.1-SNAPSHOT.jar
     - persist_to_workspace:
           root: ~/spring-project/app
-          paths: .
+          paths: ~/spring-project/app
     - run:
         command: |
           if [ -n "" ]; then
@@ -68,10 +68,10 @@ jobs:
           arguments: '--delete'
           from: '~/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar'
           to: 's3://spring-boot-xyz/app/'
-      #- aws-s3/copy:
-      #    arguments: '--dryrun'
-      #    from: '~/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar'
-      #    to: 's3://spring-boot-xyz'
+      - aws-s3/copy:
+          arguments: '--dryrun'
+          from: '~/spring-project/app/target/spring-boot-0.0.1-SNAPSHOT.jar'
+          to: 's3://spring-boot-xyz'
 workflows:
   version: 2
   push2S3:
