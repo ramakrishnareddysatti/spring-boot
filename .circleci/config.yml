@@ -65,13 +65,13 @@ jobs:
           at: ~/spring-project/app
       - run: ls
       - aws-s3/sync:
-          arguments: '--delete'
+          #arguments: '--delete'
+          #arguments: |
+             #--acl public-read \
+             #--cache-control "max-age=86400"
           from: 'target'
           to: 's3://spring-boot-xyz/app/'
-      #- aws-s3/copy:
-          #arguments: '--dryrun'
-          #from: 'target'
-          #to: 's3://spring-boot-xyz'
+      
 workflows:
   version: 2
   push2S3:
