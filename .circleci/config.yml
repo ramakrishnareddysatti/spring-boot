@@ -38,7 +38,7 @@ jobs:
     #    path: target
     #- run: java -jar target/spring-boot-0.0.1-SNAPSHOT.jar
     - persist_to_workspace:
-          root: .
+          root: ~/
           paths: ~/spring-project/app
     - run:
         command: |
