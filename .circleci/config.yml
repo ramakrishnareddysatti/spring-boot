@@ -3,7 +3,7 @@ orbs:
   aws-s3: circleci/aws-s3@2.0.0
     
 jobs:
-  maven/test:
+  build:
     working_directory: ~/spring-project/app
     docker:
       - image: cimg/openjdk:8.0.275
@@ -76,7 +76,7 @@ workflows:
   version: 2
   push2S3:
     jobs:
-    - maven/test
+    - build
     - store_buck:
         requires:
-         - maven/test
+         - build
