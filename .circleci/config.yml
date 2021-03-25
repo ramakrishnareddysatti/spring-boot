@@ -38,8 +38,8 @@ jobs:
     #    path: target
     #- run: java -jar target/spring-boot-0.0.1-SNAPSHOT.jar
     - persist_to_workspace:
-          root: .
-          paths: .
+          root: ~/spring-project/app
+          paths: target/spring-boot-0.0.1-SNAPSHOT.jar
     - run:
         command: |
           if [ -n "" ]; then
