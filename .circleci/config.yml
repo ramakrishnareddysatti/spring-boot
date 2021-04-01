@@ -9,4 +9,4 @@ workflows:
       - aws-ecr/build-and-push-image:
           repo: $ECR_REPO_NAME
           # $CIRCLE_BUILD_NUM
-          tag: "latest,$CIRCLE_SHA1"
+          tag: "latest"
