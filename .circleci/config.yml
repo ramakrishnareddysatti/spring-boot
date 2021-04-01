@@ -1,0 +1,12 @@
+version: 2.1
+orbs:
+  aws-ecr: circleci/aws-ecr@6.15.3
+
+workflows:
+  version: 2
+  build_and_push_image:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          repo: circleci-ecr-orb-demo
+          # $CIRCLE_BUILD_NUM
+          tag: "latest, $CIRCLE_SHA1"
