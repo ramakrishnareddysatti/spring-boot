@@ -7,7 +7,6 @@ workflows:
   build_and_push_image:
     jobs:
       - aws-ecr/build-and-push-image:
-          setup-remote-docker: true
           repo: $ECR_REPO_NAME
           extra-build-args: --force-rm
           # $CIRCLE_BUILD_NUM
