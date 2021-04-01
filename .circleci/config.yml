@@ -8,5 +8,7 @@ workflows:
     jobs:
       - aws-ecr/build-and-push-image:
           repo: $ECR_REPO_NAME
+          skip-when-tags-exist: false
+          extra-build-args: --force-rm
           # $CIRCLE_BUILD_NUM
           tag: "latest,$CIRCLE_SHA1"
