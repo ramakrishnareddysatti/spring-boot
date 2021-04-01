@@ -20,7 +20,7 @@ public class HelloService {
 			System.out.println("message:" + i);
 			System.out.println("Foo from @Value:"+ s1);
 		}
-		return "Greetings from Spring Boot!\n";
+		return "Greetings from Spring Boot!\n New IMAGE";
 	}
 
 }
