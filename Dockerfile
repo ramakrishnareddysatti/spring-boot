@@ -20,7 +20,7 @@ ARG DEPENDENCY=/workspace/app/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT [ "sh", "-cp", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar app:app/lib/*", "com.example.springboot.Application" ]
+ENTRYPOINT ["java","-cp","app:app/lib/*","com.example.springboot.Application"]
 
-#ENTRYPOINT ["java","-cp","app:app/lib/*","com.example.springboot.Application"]
+#ENTRYPOINT [ "sh", "-cp", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar app:app/lib/*", "com.example.springboot.Application" ]
 #ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar app.jar" ]
