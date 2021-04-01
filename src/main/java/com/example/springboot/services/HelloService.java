@@ -19,6 +19,7 @@ public class HelloService {
 		for (int i = 0; i < 20; i++) {
 			System.out.println("message:" + i);
 			System.out.println("Foo from @Value:"+ s1);
+			System.out.println("Greetings from Spring Boot!\n New IMAGE");
 		}
 		return "Greetings from Spring Boot!\n New IMAGE";
 	}
