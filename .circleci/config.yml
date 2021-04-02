@@ -1,12 +1,17 @@
-version: 2.1
 orbs:
-  aws-ecr: circleci/aws-ecr@6.15.3
+  maven: circleci/maven@1.1.0
+version: 2.1
 
+executors:
+  java-version:
+    docker:
+      - image: 'cimg/openjdk:8.0.275'
 workflows:
   version: 2
-  build_and_push_image:
+  "Benchmarking Automation": 
     jobs:
-      - aws-ecr/build-and-push-image:
-          repo: $ECR_REPO_NAME
-          extra-build-args: --force-rm
-          tag: "latest,$CIRCLE_SHA1"
+      - maven/test:
+          executor: java-version
+          command: 'clean install -Dmaven.test.skip=true'
+      - store_artifacts:
+          path: /home/circleci/project
