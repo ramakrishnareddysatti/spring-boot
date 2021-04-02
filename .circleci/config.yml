@@ -29,11 +29,6 @@ jobs:
          paths:
            - target/
 
-  aws-ecr/build-and-push-image:
-      repo: $ECR_REPO_NAME
-      extra-build-args: --force-rm
-      tag: "latest,$CIRCLE_SHA1"
-      attach-workspace: true
 
 
 workflows:
@@ -45,4 +40,9 @@ workflows:
 
   build_and_push_image:
     jobs:  
-      - aws-ecr/build-and-push-image
+      - aws-ecr/build-and-push-image:
+            repo: $ECR_REPO_NAME
+            extra-build-args: --force-rm
+            tag: "latest,$CIRCLE_SHA1"
+            attach-workspace: true
+
