@@ -19,7 +19,7 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
           
-      - run: ./mvnw -Dmaven.test.skip=true package
+      - run: mvn clean install -Dmaven.test.skip=true
       
       - persist_to_workspace:
          root: ./
