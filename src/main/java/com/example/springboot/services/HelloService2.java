@@ -1,15 +1,11 @@
 package com.example.springboot.services;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Component
-@Configuration
-@EnableAutoConfiguration
-public class HelloService {
-	@Value("${MY_SECRET}")
+public class HelloService2 {
+	@Value("${HELLO}")
 	private  String s1;
 
     
@@ -18,7 +14,7 @@ public class HelloService {
 	 * public void setDatabase(String db) { s1 = db; }
 	 */
 
-	public String index() {
+	public void index() {
 
 		//ProcessBuilder processBuilder = new ProcessBuilder();
 		// Run a shell command
@@ -30,7 +26,7 @@ public class HelloService {
 			System.out.println("MY_SECRET:"+ s1);
 			System.out.println("Greetings from Spring Boot! New IMAGE");
 		}
-		return "Greetings from Spring Boot!\n New IMAGE";
+		//return "Greetings from Spring Boot END";
 	}
 
 }
