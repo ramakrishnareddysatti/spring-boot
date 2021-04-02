@@ -13,5 +13,3 @@ workflows:
       - maven/test:
           executor: java-version
           command: 'clean install -Dmaven.test.skip=true'
-      - store_artifacts:
-          path: /home/circleci/project
