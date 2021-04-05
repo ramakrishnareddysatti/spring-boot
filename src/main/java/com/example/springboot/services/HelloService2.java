@@ -5,8 +5,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HelloService2 {
-	@Value("${HELLO}")
-	private  String s1;
+	@Value("${app.secret}")
+	private  String appSecret;
+	
+	@Value("${app.message}")
+	private  String appMessage;
 
     
 	/*
@@ -21,10 +24,10 @@ public class HelloService2 {
 	    //processBuilder.command("bash", "-c", "whoami");
 	    
 		// Call Services Here
-		for (int i = 0; i < 20; i++) {
-			System.out.println("message:" + i);
-			System.out.println("MY_SECRET:"+ s1);
-			System.out.println("Greetings from Spring Boot! New IMAGE");
+		for (int i = 0; i < 2; i++) {
+			System.out.println("MY_SECRET:"+ appSecret);
+			System.out.println("MESSAGE:" + appMessage);
+			System.out.println("\n");
 		}
 		//return "Greetings from Spring Boot END";
 	}
