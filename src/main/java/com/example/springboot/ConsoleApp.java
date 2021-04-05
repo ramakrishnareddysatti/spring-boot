@@ -20,6 +20,8 @@ public class ConsoleApp implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		helloService2.index();
+		//helloService2.addEmployee();
+		//helloService2.listEmployees();
 
 	}
 		
